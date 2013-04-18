@@ -1,0 +1,61 @@
+throttle
+========
+
+The throttle library provides a robust and versatile throttling mechanism for Python.
+
+It can be used in multiple environments, from a single thread to a distributed
+server cluster.
+
+
+It supports Python versions 2.6 to 3.3.
+
+
+Usage
+-----
+
+In order to perform throttling tasks, simply use the :meth:`~throttle.throttle`
+function:
+
+.. code-block:: python
+
+    import throttle
+
+    def some_fun(uid):
+        if not throttle.check(key=uid, rate=30, size=10):
+            raise ThrottleError()
+        # Do the job
+
+
+Algorithm
+---------
+
+throttle uses the "token bucket" algorithm: for each key, a virtual bucket
+exists.
+
+Whenever a new request gets in, the algorithm performs the following actions:
+
+- Test if adding the request's cost to the bucket would exceed its capacity;
+  in that case, return False
+- Otherwise, add the request's cost to the bucket, and return True
+
+Simultaneously, the bucket's current value is decremented at the chosen rate.
+
+
+This allows for temporary bursts and average computations.
+
+
+Installing
+----------
+
+From pip (https://pypi.python.org/pypi/throttle):
+
+.. code-block:: sh
+
+    $ pip install throttle
+
+
+From Github:
+
+.. code-block:: sh
+
+    $ git clone git://github.com/rbarrois/throttle.git
