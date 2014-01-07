@@ -7,6 +7,7 @@ from distutils.core import setup
 from distutils import cmd
 import os
 import re
+import sys
 
 root_dir = os.path.abspath(os.path.dirname(__file__))
 
